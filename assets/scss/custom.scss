@@ -1,7 +1,9 @@
 //My custom css
 $theme-colors: (
     "primary": #142334 ,
-     "danger": #ff4136
+     "secondary": #22729B,
+     "danger": #ff4136,
+     "light" :  rgba(20,35,52,.14)
 );
 
 $font-family-sans-serif:      Montserrat, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
@@ -29,4 +31,14 @@ $font-family-serif:      Lora, "Times New Roman", Times, serif !default;
 
 .font-lora{
   font-family: serif;
+}
+
+
+
+.invalid-feedback::before{
+  content: 'Erreur';
+  color: $white;
+  background-color: $danger;
+  display: inline-block;
+  padding: 2px 6px;
 }
