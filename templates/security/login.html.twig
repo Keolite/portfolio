@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    {{ encore_entry_link_tags('login') }}
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-3 col-lg-3 bg-primary min-vh-100">
+                <p class="text-lg-right text-white display-4 mb-lg-1 font-lora ">EBS</p>
+                <p class="text-lg-right text-white font-lora" >Développeur / Formateur-coach</p>
+            </div>
+            <div class="col-9 col-lg-9 min-vh-100 d-flex justify-content-lg-center align-items-lg-center">
+                <form method="post" novalidate >
+                    <h1 class="h3 mb-3 font-weight-normal">Se connecter à EBS</h1>
+                    {% if error %}
+                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
+
+                    <div class="form-group">
+                        <input type="email" value="{{ last_username }}" class="form-control" name="email" id="inputEmail" class="form-control" placeholder="Email" autofocus>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="password" name="password" id="inputPassword" class="form-control"  placeholder="Mot de passe" required>
+                    </div>
+
+
+
+
+
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" >
+
+
+
+                    <button class="btn btn-lg btn-primary  btn-block" type="submit">
+                        Se connecter
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+
