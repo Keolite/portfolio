@@ -16,34 +16,26 @@
                 <p class="text-lg-right text-white font-lora" >Développeur / Formateur-coach</p>
             </div>
             <div class="col-9 col-lg-9 min-vh-100 d-flex justify-content-lg-center align-items-lg-center">
-                <form method="post" novalidate >
+                <form method="post" class="needs-validation"  novalidate >
                     <h1 class="h3 mb-3 font-weight-normal">Se connecter à EBS</h1>
                     {% if error %}
                         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                     {% endif %}
 
                     <div class="form-group">
-                        <input type="email" value="{{ last_username }}" class="form-control" name="email" id="inputEmail" class="form-control"  required placeholder="Email" autofocus>
-                        <div class="valid-feedback mt-2">
+                        <input type="email" value="{{ last_username }}"  name="email" id="inputEmail" class="form-control"  required placeholder="Email" autofocus>
+                        <div class="valid-feedback">
                             L'étape email est obligatoire
                         </div>
                     </div>
 
                     <div class="form-group">
                         <input type="password" name="password" id="inputPassword" class="form-control"  placeholder="Mot de passe" required>
-                        <div class="valid-feedback mt-2">
+                        <div class="valid-feedback ">
                             L'étape mot de passe est obligatoire
                         </div>
                     </div>
-
-
-
-
-
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" >
-
-
-
                     <button class="btn btn-lg btn-light  btn-block text-primary" type="submit">
                         Se connecter
                     </button>

@@ -32,13 +32,3 @@ $font-family-serif:      Lora, "Times New Roman", Times, serif !default;
 .font-lora{
   font-family: serif;
 }
-
-
-
-.invalid-feedback::before{
-  content: 'Erreur';
-  color: $white;
-  background-color: $danger;
-  display: inline-block;
-  padding: 2px 6px;
-}
