@@ -14,7 +14,7 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  */
 class LoginAttemptRepository extends ServiceEntityRepository
 {
-    const DELAY_IN_MINUTES = 10;
+    const DELAY_IN_MINUTES = 20;
 
     public function __construct(ManagerRegistry $registry)
     {
@@ -34,7 +34,6 @@ class LoginAttemptRepository extends ServiceEntityRepository
                 'date' => $timeAgo,
                 'username' => $username,
             ])
-            ->getSingleScalarResult()
-            ;
+            ->getSingleScalarResult();
     }
 }
