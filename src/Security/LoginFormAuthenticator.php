@@ -2,7 +2,9 @@
 
 namespace App\Security;
 
+use App\Entity\LoginAttempt;
 use App\Entity\User;
+use App\Repository\LoginAttemptRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,7 +22,8 @@ use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticato
 use Symfony\Component\Security\Guard\PasswordAuthenticatedInterface;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
-class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements PasswordAuthenticatedInterface
+class
+LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements PasswordAuthenticatedInterface
 {
     use TargetPathTrait;
 
@@ -28,13 +31,19 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
     private $urlGenerator;
     private $csrfTokenManager;
     private $passwordEncoder;
+    private $loginAttemptRepository;
+    /**
+     * @var LoginAttempt
+     */
+    private $loginAttempt;
 
-    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
+    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder, LoginAttemptRepository $loginAttemptRepository)
     {
         $this->entityManager = $entityManager;
         $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->passwordEncoder = $passwordEncoder;
+        $this->loginAttemptRepository = $loginAttemptRepository;
     }
 
     public function supports(Request $request)
@@ -54,6 +63,12 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
             Security::LAST_USERNAME,
             $credentials['email']
         );
+
+        // Sauvegarde une tentative de connexion
+        $newLoginAttempt = new LoginAttempt($request->getClientIp(), $credentials['email']);
+
+        $this->entityManager->persist($newLoginAttempt);
+        $this->entityManager->flush();
 
         return $credentials;
     }
@@ -77,6 +92,17 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
 
     public function checkCredentials($credentials, UserInterface $user)
     {
+        // Deuxième modification, la vérification
+        if ($this->loginAttemptRepository->countRecentLoginAttempts($credentials['email']) > 3) {
+            // CustomUserMessageAuthenticationException nous permet de définir nous-même le message,
+            // qui sera affiché à l'utilisateur (ou bien sa clef de traduction).
+            // Attention toutefois à ne pas révéler trop d'informations dans le messages,
+            // notamment ne pas indiquer si le compte existe.
+            throw new CustomUserMessageAuthenticationException('Vous avez essayé de vous connecter avec un mot'
+                .' de passe incorrect de trop nombreuses fois. Veuillez patienter svp avant de ré-essayer.');
+        }
+
+
         return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
     }
 
