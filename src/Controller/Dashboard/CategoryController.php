@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/ebs-admin/categorie")
  */
-class categoryController extends AbstractController
+class CategoryController extends AbstractController
 {
     /**
      * @Route("/", name="dashboard_category")
