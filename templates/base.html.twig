@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {{ encore_entry_link_tags('dashboard') }}
+        {{ encore_entry_link_tags('common') }}
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
@@ -30,6 +30,7 @@
             </div>
         </div>
 
+        {{ encore_entry_script_tags('common') }}
         {% block javascripts %}{% endblock %}
     </body>
 </html>

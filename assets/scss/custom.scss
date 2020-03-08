@@ -10,23 +10,9 @@ $font-family-sans-serif:      Montserrat, -apple-system, BlinkMacSystemFont, "Se
 $font-family-serif:      Lora, "Times New Roman", Times, serif !default;
 
 
-
-
-
 // Required
-@import "../../node_modules/bootstrap/scss/functions";
-@import "../../node_modules/bootstrap/scss/variables";
-@import "../../node_modules/bootstrap/scss/mixins";
+@import "~bootstrap/scss/bootstrap";
 
-//For the project
-@import "../../node_modules/bootstrap/scss/reboot";
-@import "../../node_modules/bootstrap/scss/grid";
-@import "../../node_modules/bootstrap/scss/utilities";
-@import "../../node_modules/bootstrap/scss/type";
-@import "../../node_modules/bootstrap/scss/forms";
-@import "../../node_modules/bootstrap/scss/buttons";
-@import "../../node_modules/bootstrap/scss/alert";
-@import "../../node_modules/bootstrap/scss/nav";
 
 @import url('https://fonts.googleapis.com/css?family=Lora&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
@@ -34,3 +20,5 @@ $font-family-serif:      Lora, "Times New Roman", Times, serif !default;
 .font-lora{
   font-family: serif;
 }
+
+
